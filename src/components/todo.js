@@ -188,28 +188,28 @@ const Todo = () => {
 			title: '',
 		});
 	};
-	// window.onbeforeunload = (event) => {
-	// 	const e = event || window.event;
-	// 	// Cancel the event
-	// 	e.preventDefault();
-	// 	if (e) {
-	// 		//this part is added by user
-	// 		setTodos(
-	// 			todos.map((todo) =>
-	// 				todo.id === editTodo.id
-	// 					? {
-	// 							...todo,
-	// 							title: editTodo.title,
-	// 							edited: editTodo.title !== todo.title ? true : false,
-	// 							edit: !todo.edit,
-	// 					  }
-	// 					: todo
-	// 			)
-	// 		);
-	// 		e.returnValue = ''; // Legacy method for cross browser support
-	// 	}
-	// 	return ''; // Legacy method for cross browser support
-	// };
+	window.onbeforeunload = (event) => {
+		const e = event || window.event;
+		// Cancel the event
+		e.preventDefault();
+		if (e) {
+			//this part is added by user
+			setTodos(
+				todos.map((todo) =>
+					todo.id === editTodo.id
+						? {
+								...todo,
+								title: editTodo.title,
+								edited: editTodo.title !== todo.title ? true : false,
+								edit: !todo.edit,
+						  }
+						: todo
+				)
+			);
+			e.returnValue = ''; // Legacy method for cross browser support
+		}
+		return ''; // Legacy method for cross browser support
+	};
 
 
 	//here we are rendering the original form to create todos
