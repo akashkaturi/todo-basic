@@ -83,9 +83,11 @@ const Todo = () => {
 	};
 
 	//filtering todos
+	const [search, setSearch] = useState('');
+
 	useEffect(() => {
 		filterTodos();
-	}, [todos, status]);
+	}, [todos, status, search]);
 	const filterTodos = () => {
 		switch (status) {
 			case 'completed':
@@ -103,7 +105,15 @@ const Todo = () => {
 				);
 				break;
 			default:
-				setFtodos(todos);
+				setFtodos(
+					todos.filter((val) => {
+						if (search === '') {
+							return val;
+						} else if (val.title.toLowerCase().includes(search.toLowerCase())) {
+							return val;
+						}
+					})
+				);
 				break;
 		}
 	};
@@ -242,6 +252,14 @@ const Todo = () => {
 					</select>
 				</section>
 
+				<input
+					id='search'
+					type='text'
+					placeholder='Search Todos'
+					onChange={(e) => {
+						setSearch(e.target.value);
+					}}
+				/>
 				<button type='submit'>Create</button>
 			</form>
 			{/* here we are displaying the 
