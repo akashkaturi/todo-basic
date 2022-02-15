@@ -211,7 +211,6 @@ const Todo = () => {
 		return ''; // Legacy method for cross browser support
 	};
 
-
 	//here we are rendering the original form to create todos
 	return (
 		<div>
