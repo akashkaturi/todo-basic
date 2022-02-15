@@ -68,14 +68,11 @@ const Todo = () => {
 					? {
 							...todo,
 							completed: !todo.completed,
-							completedTime:
-								todo.completedTime === ''
-									? `${new Date()
-											.toString()
-											.slice(0, 16)} at ${new Date()
-											.toString()
-											.slice(16, 25)}`
-									: '',
+							completedTime: !todo.completed
+								? `${new Date()
+										.toString()
+										.slice(0, 16)} at ${new Date().toString().slice(16, 25)}`
+								: '',
 					  }
 					: todo;
 			})
@@ -100,8 +97,6 @@ const Todo = () => {
 						}
 					})
 				);
-			
-
 				break;
 			case 'uncompleted':
 				setFtodos(
