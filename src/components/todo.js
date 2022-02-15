@@ -92,15 +92,25 @@ const Todo = () => {
 		switch (status) {
 			case 'completed':
 				setFtodos(
-					todos.filter((todo) => {
-						return todo.completed === true;
+					todos.filter((val) => {
+						if (search === '') {
+							return val.completed === true;
+						} else if (val.title.toLowerCase().includes(search.toLowerCase())) {
+							return val.completed === true;
+						}
 					})
 				);
+			
+
 				break;
 			case 'uncompleted':
 				setFtodos(
-					todos.filter((todo) => {
-						return todo.completed === false;
+					todos.filter((val) => {
+						if (search === '') {
+							return val.completed === false;
+						} else if (val.title.toLowerCase().includes(search.toLowerCase())) {
+							return val.completed === false;
+						}
 					})
 				);
 				break;
