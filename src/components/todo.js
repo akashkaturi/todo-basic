@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { nanoid } from 'nanoid';
 import { BiEditAlt } from 'react-icons/bi';
-import { AiTwotoneDelete } from 'react-icons/ai';
+import { AiTwotoneDelete, AiTwotoneEdit } from 'react-icons/ai';
 import Pagination from './pagination';
-import { TiTickOutline } from 'react-icons/ti';
+import { TiTick } from 'react-icons/ti';
+import { IoArrowUndoSharp } from 'react-icons/io5';
 
 const Todo = () => {
 	const [todo, setTodo] = useState({
@@ -67,9 +68,14 @@ const Todo = () => {
 					? {
 							...todo,
 							completed: !todo.completed,
-							completedTime: `${new Date()
-								.toString()
-								.slice(0, 16)} at ${new Date().toString().slice(16, 25)}`,
+							completedTime:
+								todo.completedTime === ''
+									? `${new Date()
+											.toString()
+											.slice(0, 16)} at ${new Date()
+											.toString()
+											.slice(16, 25)}`
+									: '',
 					  }
 					: todo;
 			})
@@ -200,7 +206,10 @@ const Todo = () => {
 						? {
 								...todo,
 								title: editTodo.title,
-								edited: editTodo.title !== todo.title ? true : false,
+								edited:
+									editTodo.edited === false && editTodo.title !== todo.title
+										? true
+										: false,
 								edit: !todo.edit,
 						  }
 						: todo
@@ -271,7 +280,7 @@ const Todo = () => {
 							)}
 							<div className='functional-buttons'>
 								{!todo.completed && (
-									<TiTickOutline
+									<TiTick
 										className='edit-button'
 										onClick={() => completedTodo(todo.id)}
 									/>
@@ -281,11 +290,14 @@ const Todo = () => {
 									onClick={() => delTodo(todo.id)}
 								/>
 								{!todo.completed && (
-									<BiEditAlt
+									<AiTwotoneEdit
 										onClick={() => {
 											updatetodos(todo);
 										}}
 									/>
+								)}
+								{todo.completed && (
+									<IoArrowUndoSharp onClick={() => completedTodo(todo.id)} />
 								)}
 							</div>
 						</section>
