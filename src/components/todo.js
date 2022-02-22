@@ -6,7 +6,6 @@ import Pagination from './pagination';
 import { TiTick } from 'react-icons/ti';
 import { IoArrowUndoSharp } from 'react-icons/io5';
 import TodoForm from './todoForm';
-import ApiComponent from './api_render';
 import axios from 'axios';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
