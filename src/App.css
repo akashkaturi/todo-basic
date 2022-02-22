@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap');
 .App {
 	display: flex;
 	flex-direction: column;
@@ -92,44 +93,47 @@ p {
 	flex-direction: column;
 	align-items: center;
 }
-.titles{
+.titles {
 	display: flex;
 	flex-direction: row;
 	gap: 2rem;
 }
-.titles>h1{
+.titles > h1 {
+	margin: 0;
 	margin-right: auto;
+	font-size: 3rem;
+	font-weight: 500;
+	width: 450px;
 }
-.api-images{
+.api-images {
 	border-radius: 100%;
 	width: 3.5rem;
 }
-.rick-morty{
+.rick-morty {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin-right: 3rem;
 }
-.rick-morty > p{
+.rick-morty > p {
 	font-size: 0.5rem;
 	font-weight: 1000;
-	width: 100px;
+	width: 120px;
 	text-align: center;
-	
 }
 @media screen and (max-width: 720px) {
 	.todo-form {
 		display: flex;
 		flex-direction: column;
 	}
-	.edit-form{
+	.edit-form {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
-	.edit-form>button{
+	.edit-form > button {
 		margin-top: 1rem;
 	}
 }

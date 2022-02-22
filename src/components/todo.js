@@ -238,7 +238,7 @@ const Todo = () => {
 		};
 		fetchData();
 	}, [todos]);
-	console.log(todo);	
+	console.log(todo);
 	window.onbeforeunload = (event) => {
 		const e = event || window.event;
 		// Cancel the event
@@ -310,6 +310,8 @@ const Todo = () => {
 											alt='character'
 										/>
 										<p>{todo.rickMorty.name}</p>
+										<p>Location: {todo.rickMorty.location.name}</p>
+										<p>Status: {todo.rickMorty.status}</p>
 									</div>
 								</section>
 							)}
