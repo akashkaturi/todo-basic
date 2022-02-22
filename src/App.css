@@ -92,6 +92,32 @@ p {
 	flex-direction: column;
 	align-items: center;
 }
+.titles{
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+}
+.titles>h1{
+	margin-right: auto;
+}
+.api-images{
+	border-radius: 100%;
+	width: 3.5rem;
+}
+.rick-morty{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-right: 3rem;
+}
+.rick-morty > p{
+	font-size: 0.5rem;
+	font-weight: 1000;
+	width: 100px;
+	text-align: center;
+	
+}
 @media screen and (max-width: 720px) {
 	.todo-form {
 		display: flex;

@@ -5,11 +5,17 @@ import { AiTwotoneDelete, AiTwotoneEdit } from 'react-icons/ai';
 import Pagination from './pagination';
 import { TiTick } from 'react-icons/ti';
 import { IoArrowUndoSharp } from 'react-icons/io5';
+import TodoForm from './todoForm';
+import ApiComponent from './api_render';
+import axios from 'axios';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Todo = () => {
 	const [todo, setTodo] = useState({
 		id: '',
 		title: '',
+		description: '',
 		created: '',
 		completed: false,
 		edit: false,
@@ -30,6 +36,7 @@ const Todo = () => {
 					.toString()
 					.slice(16, 25)}`,
 				[name]: value,
+				rickMorty: rickMorty,
 				completed: false,
 			};
 		});
@@ -40,9 +47,16 @@ const Todo = () => {
 		if (todo.title === '') {
 			alert('It cannot be empty!');
 		} else {
+			// setTodo((prevTodo) => {
+			// 	return {
+			// 		...prevTodo,
+			// 		rickMorty: rickMorty,
+			// 	};
+			// });
 			setTodos((prevTodos) => {
 				return [todo, ...prevTodos];
 			});
+
 			setTodo({
 				title: '',
 			});
@@ -69,9 +83,9 @@ const Todo = () => {
 							...todo,
 							completed: !todo.completed,
 							completedTime: !todo.completed
-								? `${new Date()
+								? `${new Date().toString().slice(0, 16)} at ${new Date()
 										.toString()
-										.slice(0, 16)} at ${new Date().toString().slice(16, 25)}`
+										.slice(16, 25)}`
 								: '',
 					  }
 					: todo;
@@ -141,7 +155,7 @@ const Todo = () => {
 	}, [todos]);
 
 	const [currentPage, setCurrentPage] = useState(1);
-	const [todosPerPage, setTodosPerPage] = useState(3);
+	const [todosPerPage, setTodosPerPage] = useState(10);
 
 	// pagination
 	const indexOfLastTodo = currentPage * todosPerPage;
@@ -209,6 +223,23 @@ const Todo = () => {
 			title: '',
 		});
 	};
+	//Rick and Morty
+	const [rickMorty, setRickMorty] = useState('');
+	const r = Math.ceil(Math.random() * 826);
+
+	useEffect(() => {
+		const url = `https://rickandmortyapi.com/api/character/${r}`;
+
+		const fetchData = async () => {
+			try {
+				axios.get(url).then((res) => setRickMorty(res.data));
+			} catch (error) {
+				console.log('error', error);
+			}
+		};
+		fetchData();
+	}, [todos]);
+	console.log(todo);	
 	window.onbeforeunload = (event) => {
 		const e = event || window.event;
 		// Cancel the event
@@ -238,35 +269,14 @@ const Todo = () => {
 	//here we are rendering the original form to create todos
 	return (
 		<div>
-			<form onSubmit={handleSubmit} className='todo-form'>
-				<input
-					type='text'
-					name='title'
-					value={todo.title}
-					onChange={onChange}
-					placeholder='Enter Title'
-				/>
-				<section>
-					<label htmlFor='status'>
-						<strong>Filter: </strong>{' '}
-					</label>
-					<select name='status' id='status' onChange={handleStatus}>
-						<option defaultValue='all'>All</option>
-						<option value='completed'>Completed</option>
-						<option value='uncompleted'>Uncompleted</option>
-					</select>
-				</section>
+			<TodoForm
+				todo={todo}
+				handleSubmit={handleSubmit}
+				onChange={onChange}
+				handleStatus={handleStatus}
+				setSearch={setSearch}
+			/>
 
-				<input
-					id='search'
-					type='text'
-					placeholder='Search Todos'
-					onChange={(e) => {
-						setSearch(e.target.value);
-					}}
-				/>
-				<button type='submit'>Create</button>
-			</form>
 			{/* here we are displaying the 
 			todos by checking whether the edit property is active or not.. 
 			if edit is true then we should render edit form in header 
@@ -288,10 +298,21 @@ const Todo = () => {
 									<button type='submit'>Update</button>
 								</form>
 							) : (
-								<h1>
-									{todo.title}
-									{todo.edited && <span>(edited)</span>}
-								</h1>
+								<section className='titles'>
+									<h1>
+										{todo.title}
+										{todo.edited && <span>(edited)</span>}
+									</h1>
+									<div className='rick-morty'>
+										<LazyLoadImage
+											effect='blur'
+											className='api-images'
+											src={todo.rickMorty.image}
+											alt='character'
+										/>
+										<p>{todo.rickMorty.name}</p>
+									</div>
+								</section>
 							)}
 							<p>
 								Created On: <strong>{todo.created}</strong>
