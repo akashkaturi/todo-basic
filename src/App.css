@@ -108,6 +108,7 @@ p {
 .api-images {
 	border-radius: 100%;
 	width: 3.5rem;
+	border: 5px solid white;
 }
 .rick-morty {
 	display: flex;
@@ -132,8 +133,29 @@ p {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		width: 400px;
 	}
 	.edit-form > button {
 		margin-top: 1rem;
+	}
+	.red,
+	.green {
+		width:300px;
+	}
+	.titles > h1 {
+		font-size: 2rem;
+		font-weight: 800;
+		width: 450px;
+	}
+	.rick-morty {
+		margin-right: 0;
+	}
+	.created-time,
+	.completed-time {
+		font-size: 0.8rem;
+	}
+	.rick-morty > p {
+		font-size: 0.6rem;
+		width: max-content;
 	}
 }

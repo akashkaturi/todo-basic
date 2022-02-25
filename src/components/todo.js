@@ -137,7 +137,10 @@ const Todo = () => {
 	};
 	// saving to local storage
 	const getLocalTodos = () => {
-		if (localStorage.getItem('todos') === null) {
+		if (
+			localStorage.getItem('todos') === null ||
+			localStorage.getItem('todos')[0].rickMorty === null
+		) {
 			localStorage.setItem('todos', JSON.stringify([]));
 		} else {
 			let todoLocal = JSON.parse(localStorage.getItem('todos'));
@@ -238,7 +241,6 @@ const Todo = () => {
 		};
 		fetchData();
 	}, [todos]);
-	console.log(todo);
 	window.onbeforeunload = (event) => {
 		const e = event || window.event;
 		// Cancel the event
@@ -302,24 +304,26 @@ const Todo = () => {
 										{todo.title}
 										{todo.edited && <span>(edited)</span>}
 									</h1>
-									<div className='rick-morty'>
-										<LazyLoadImage
-											effect='blur'
-											className='api-images'
-											src={todo.rickMorty.image}
-											alt='character'
-										/>
-										<p>{todo.rickMorty.name}</p>
-										<p>Location: {todo.rickMorty.location.name}</p>
-										<p>Status: {todo.rickMorty.status}</p>
-									</div>
+									{todo.rickMorty && (
+										<div className='rick-morty'>
+											<LazyLoadImage
+												effect='blur'
+												className='api-images'
+												src={todo.rickMorty.image}
+												alt='character'
+											/>
+											<p>{todo.rickMorty.name}</p>
+											<p>{todo.rickMorty.location.name}</p>
+											<p>{todo.rickMorty.status}</p>
+										</div>
+									)}
 								</section>
 							)}
-							<p>
+							<p className='created-time'>
 								Created On: <strong>{todo.created}</strong>
 							</p>
 							{todo.completedTime && (
-								<p>
+								<p className='completed-time'>
 									Completed On: <strong>{todo.completedTime}</strong>
 								</p>
 							)}
